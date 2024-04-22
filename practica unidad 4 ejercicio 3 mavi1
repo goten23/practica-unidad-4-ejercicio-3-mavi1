@@ -1,0 +1,38 @@
+import pygame
+import sys
+
+# Inicializar pygame
+pygame.init()
+
+# Configuración de la ventana
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Splats")
+
+# Cargar imágenes de los sprites
+red_splat_img = pygame.image.load("red_splat.png")
+blue_splat_img = pygame.image.load("blue_splat.png")
+
+# Lista para almacenar los splats
+splats = []
+
+# Bucle principal
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # Click izquierdo
+                splats.append((red_splat_img, event.pos))
+            elif event.button == 3:  # Click derecho
+                splats.append((blue_splat_img, event.pos))
+
+    # Dibujar los splats en pantalla
+    screen.fill((255, 255, 255))  # Llenar la pantalla de blanco
+    for splat in splats:
+        screen.blit(splat[0], splat[1])
+
+    # Actualizar la pantalla
+    pygame.display.flip()
